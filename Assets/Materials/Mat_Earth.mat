@@ -1,0 +1,51 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: Mat_Earth
+  m_Shader: {fileID: 4800000, guid: 5d039c14c7fad7742868428421d7f857, type: 3}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _AlbedoMap:
+        m_Texture: {fileID: 2800000, guid: a6ba168420b0be84d8bf36efc958f243, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _CloudMap:
+        m_Texture: {fileID: 2800000, guid: a9851824d9d1eca4996141eea492d8ad, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _NightLightMap:
+        m_Texture: {fileID: 2800000, guid: ecb5e77962e64f941990ea3cc98e6eac, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _NormalMap:
+        m_Texture: {fileID: 2800000, guid: 8553c399d5cce684fb7263ce7db6074e, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _OceanMaskMap:
+        m_Texture: {fileID: 2800000, guid: a6cac752584a512468d2f6eb3b7d2fe6, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - _Fresnel: 2.88
+    - _SpecularGloss: 3.179487
+    - _SpecularIntensity: 0.5
+    m_Colors:
+    - _CloudColorA: {r: 0.07136678, g: 0.1976941, b: 0.4044118, a: 1}
+    - _CloudColorB: {r: 0.3308824, g: 0.7508115, b: 1, a: 1}
+    - _LightsColor: {r: 0.9779412, g: 0.9620719, b: 0.4026816, a: 1}
+    - _MainColor: {r: 0, g: 0.91724133, b: 1, a: 1}
+    - _RimColor: {r: 0, g: 0.95862055, b: 1, a: 1}
+    - _SpecularColor: {r: 0, g: 0.91724133, b: 1, a: 1}
