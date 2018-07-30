@@ -31,8 +31,10 @@ public class SCR_InstaGrid : MonoBehaviour {
                 Board.Tiles[i, j].GetComponent<SCR_FloorTileInfo>().xPos = i;
                 Board.Tiles[i, j].GetComponent<SCR_FloorTileInfo>().yPos = j;
 
+                    Board.Tiles[i, j].GetComponent<SCR_FloorTileInfo>().walkable = true;
 
                 //Random obstacles
+                /*
                 if (i == rndX || j == rndY)
                 {
                     Board.Tiles[i, j].GetComponent<SCR_FloorTileInfo>().walkable = false;
@@ -41,9 +43,23 @@ public class SCR_InstaGrid : MonoBehaviour {
                 {
                     Board.Tiles[i, j].GetComponent<SCR_FloorTileInfo>().walkable = true;
                 }
+                */
             }
         }
 
+        for (int i = 0; i < Board.width; i++)
+        {
+            for (int j = 0; j < Board.height; j++)
+            {
+                if (!Board.Tiles[i, j].GetComponent<SCR_FloorTileInfo>().walkable)
+                {
+                    Board.Tiles[i, j].GetComponent<Renderer>().material.color = Color.black;
+                }
+            }
+        }
+    }
+    public void DrawTileSet()
+    {
         for (int i = 0; i < Board.width; i++)
         {
             for (int j = 0; j < Board.height; j++)

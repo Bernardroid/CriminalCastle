@@ -9,4 +9,5 @@ public class SCR_FloorTileInfo : MonoBehaviour {
 
     public bool walkable;
 
+
 }

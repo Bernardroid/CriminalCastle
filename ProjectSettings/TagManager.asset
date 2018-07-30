@@ -8,6 +8,11 @@ TagManager:
   - uiChat
   - uiBox
   - ChatManager
+  - Floor
+  - Room
+  - Unit
+  - Obstacle
+  - GameManager
   layers:
   - Default
   - TransparentFX
