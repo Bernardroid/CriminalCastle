@@ -4,18 +4,32 @@ using UnityEngine;
 
 public class GameFlow : MonoBehaviour
 {
-    public  GameObject[] rooms;
     public GameObject[] units;
+    public GameObject[] enemies;
     bool isInCoroutine=false;
     void Start()
     {
-        rooms = GameObject.FindGameObjectsWithTag("Room");
         units = GameObject.FindGameObjectsWithTag("Unit");
+        enemies = GameObject.FindGameObjectsWithTag("Enemy");
+
     }
     void Update()
     {
-
-         
+        int done=0;
+        for (int i = 0; i < units.Length; i++)
+        {
+            if(units[i].GetComponent<SCR_DragRoom>().b_piecePermaLocked)
+            {
+                done++;
+            }
+            
+        }
+        if(done>=units.Length)
+        {
+            ResetPermaLocks();
+                
+                
+        }
 
     }
     void StartTurn()
@@ -36,10 +50,6 @@ public class GameFlow : MonoBehaviour
             units[i].GetComponent<SCR_DragRoom>().b_piecePermaLocked = false;
         }
 
-        for (int i = 0; i < rooms.Length; i++)
-        {
-            rooms[i].GetComponent<SCR_DragRoom>().b_piecePermaLocked = false;
-        }
     }
 
     //Function returns damage done in combat

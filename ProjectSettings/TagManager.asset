@@ -13,6 +13,7 @@ TagManager:
   - Unit
   - Obstacle
   - GameManager
+  - Enemy
   layers:
   - Default
   - TransparentFX

@@ -44,7 +44,7 @@ public class SCR_Scene01Script : MonoBehaviour {
                 {
                     chatManager.currentState = SCR_ChatManager.ChatState.AnimateToShow;
                     yield return new WaitUntil(() => chatManager.currentState == SCR_ChatManager.ChatState.Showing);
-                    chatManager.SetDialogue("????", "Raven, tenemos un problema en Santa Monica Norte. Hay reportes de actividad sospechosa. Reune a tu equipo investiga. Tienen 5 minutos para partir.", wandaPortrait);
+                    chatManager.SetDialogue("Wanda", "Soy la capitana Wanda líder de esta estación policiaca, para probar tu desempeño te llevare a una pequeña misión.", wandaPortrait);
                     chatManager.currentState = SCR_ChatManager.ChatState.AnimateText;
                     yield return new WaitUntil(() => chatManager.currentState == SCR_ChatManager.ChatState.WaitingInput);
 
@@ -53,7 +53,7 @@ public class SCR_Scene01Script : MonoBehaviour {
                 break;
             case 2:
                 {
-                    chatManager.SetDialogue("Raven", "Wanda por lo menos dime que se espera de mi equipo.", ravenPortrait);
+                    chatManager.SetDialogue("Raven", "¿Misión?  Pero aun no estoy lo suficiente preparada.", ravenPortrait);
                     chatManager.currentState = SCR_ChatManager.ChatState.AnimateText;
                     yield return new WaitUntil(() => chatManager.currentState == SCR_ChatManager.ChatState.WaitingInput);
 
@@ -61,7 +61,7 @@ public class SCR_Scene01Script : MonoBehaviour {
                 break;
             case 3:
                 {
-                    chatManager.SetDialogue("Wanda", "Raven puede ser relacionado con la muerte de tu madre. Porfavor no pierdas mas el tiempo.", wandaPortrait);
+                    chatManager.SetDialogue("Wanda", "No te preocupes yo te iré guiando en la batalla y si algo sale mal puedo calcinar a los enemigos con un chasquido de mis dedos, así que... ¿Estas lista?", wandaPortrait);
                     chatManager.currentState = SCR_ChatManager.ChatState.AnimateText;
                     yield return new WaitUntil(() => chatManager.currentState == SCR_ChatManager.ChatState.WaitingInput);
 
@@ -69,12 +69,19 @@ public class SCR_Scene01Script : MonoBehaviour {
                 break;
             case 4:
                 {
-                    chatManager.SetDialogue("Raven", "... Okay.", ravenPortrait);
+                    chatManager.SetDialogue("Raven", "Si, vamos!", ravenPortrait);
                     chatManager.currentState = SCR_ChatManager.ChatState.AnimateText;
                     yield return new WaitUntil(() => chatManager.currentState == SCR_ChatManager.ChatState.WaitingInput);
                 }
                 break;
             case 5:
+                {
+                    chatManager.SetDialogue("Raven", "(Bien mientras mas rápido comience podré encontrar las pistas para encontrar a esa “persona”)", ravenPortrait);
+                    chatManager.currentState = SCR_ChatManager.ChatState.AnimateText;
+                    yield return new WaitUntil(() => chatManager.currentState == SCR_ChatManager.ChatState.WaitingInput);
+                }
+                break;
+            case 6:
                 {
                     SceneManager.LoadScene("REE");
                 }
