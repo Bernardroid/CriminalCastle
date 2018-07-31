@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 public class SCR_ShowUnitRange : MonoBehaviour {
 
     RaycastHit hitInfo;
@@ -36,8 +36,15 @@ public class SCR_ShowUnitRange : MonoBehaviour {
                 b_tileSet = true;
             }
         }
+        if(enemyRightDestroyed&&enemyLeftDestroyed)
+        {
+            Invoke("LoadWinScene",10);
+        }
     }
-
+    void LoadWinScene()
+    {
+        SceneManager.LoadScene("Win");
+    }
     public void ShowRange()
     {
         int tempRange = GetComponent<UnitStatus>().range;
