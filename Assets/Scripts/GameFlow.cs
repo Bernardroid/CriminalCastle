@@ -4,6 +4,20 @@ using UnityEngine;
 
 public class GameFlow : MonoBehaviour
 {
+    public  GameObject[] rooms;
+    public GameObject[] units;
+    bool isInCoroutine=false;
+    void Start()
+    {
+        rooms = GameObject.FindGameObjectsWithTag("Room");
+        units = GameObject.FindGameObjectsWithTag("Unit");
+    }
+    void Update()
+    {
+
+         
+
+    }
     void StartTurn()
     {
         ResetPermaLocks();
@@ -14,10 +28,8 @@ public class GameFlow : MonoBehaviour
         //Start enemy turn
     }
 
-    public static void ResetPermaLocks()
+    public void ResetPermaLocks()
     {
-        GameObject[] rooms = GameObject.FindGameObjectsWithTag("Room");
-        GameObject[] units = GameObject.FindGameObjectsWithTag("Unit");
 
         for (int i = 0; i < units.Length; i++)
         {
