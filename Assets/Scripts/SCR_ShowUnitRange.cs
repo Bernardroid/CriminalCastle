@@ -7,7 +7,14 @@ public class SCR_ShowUnitRange : MonoBehaviour {
     RaycastHit hitInfo;
     SCR_FloorTileInfo tileBelow;
 
+    public GameObject enemyLeft;
+    public GameObject enemyRight;
+    public GameObject destroyPrefab;
+
     public bool b_tileSet = false;
+
+    public bool enemyRightDestroyed;
+    public bool enemyLeftDestroyed;
 
     private void Start()
     {
@@ -96,6 +103,57 @@ public class SCR_ShowUnitRange : MonoBehaviour {
                     Board.Tiles[i, j].GetComponent<Renderer>().material.color = Color.black;
                 }
             }
+        }
+    }
+
+    public bool EnemyAround()
+    {
+        if (Physics.Raycast(transform.position, Vector3.down, out hitInfo))
+        {
+            if (hitInfo.transform.CompareTag("Floor"))
+            {
+                //Debug.Log("Piece is above tile: (" + hitInfo.transform.GetComponent<SCR_FloorTileInfo>().xPos + "," + hitInfo.transform.GetComponent<SCR_FloorTileInfo>().yPos + ")");
+                tileBelow = hitInfo.transform.GetComponent<SCR_FloorTileInfo>();
+            }
+        }
+
+        if (tileBelow.xPos == 4 && tileBelow.yPos == 5 || 
+            tileBelow.xPos == 5 && tileBelow.yPos == 6 ||
+            tileBelow.xPos == 5 && tileBelow.yPos == 4 ||
+            tileBelow.xPos == 8 && tileBelow.yPos == 6 ||
+            tileBelow.xPos == 8 && tileBelow.yPos == 4 ||
+            tileBelow.xPos == 9 && tileBelow.yPos == 5)
+        {
+            if(tileBelow.xPos == 4 && tileBelow.yPos == 5 ||
+            tileBelow.xPos == 5 && tileBelow.yPos == 6 ||
+            tileBelow.xPos == 5 && tileBelow.yPos == 4)
+            {
+                if(!enemyLeftDestroyed)
+                {
+                    Instantiate(destroyPrefab, enemyLeft.transform.position, Quaternion.identity);
+                    Destroy(enemyLeft);
+                    enemyLeftDestroyed = true;
+                }
+                
+            }
+
+            if(tileBelow.xPos == 8 && tileBelow.yPos == 6 ||
+            tileBelow.xPos == 8 && tileBelow.yPos == 4 ||
+            tileBelow.xPos == 9 && tileBelow.yPos == 5)
+            {
+                if (!enemyRightDestroyed)
+                {
+                    Instantiate(destroyPrefab, enemyRight.transform.position, Quaternion.identity);
+                    Destroy(enemyRight);
+                    enemyRightDestroyed = true;
+                }
+            }
+
+            return true;
+        }
+        else
+        {
+            return false;
         }
     }
 }

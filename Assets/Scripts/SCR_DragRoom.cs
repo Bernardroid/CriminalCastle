@@ -82,6 +82,12 @@ public class SCR_DragRoom : MonoBehaviour {
             GetComponent<SCR_ShowUnitRange>().ClearTiles();
             b_piecePermaLocked = true;
             GetComponent<SCR_ShowUnitRange>().b_tileSet = false;
+
+            if(GetComponent<SCR_ShowUnitRange>().EnemyAround())
+            {
+                Debug.Log("START ATTACK");
+            }
+
         }
     }
 }

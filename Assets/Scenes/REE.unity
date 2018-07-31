@@ -1087,7 +1087,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e1415d43ca192247be1dd112f0199e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyLeft: {fileID: 784393265}
+  enemyRight: {fileID: 1789951772}
+  destroyPrefab: {fileID: 1000010608846784, guid: 6747b1742d70743a8aff8594e708b2f7,
+    type: 2}
   b_tileSet: 0
+  enemyRightDestroyed: 0
+  enemyLeftDestroyed: 0
 --- !u!114 &251401111
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3907,7 +3913,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e1415d43ca192247be1dd112f0199e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyLeft: {fileID: 784393265}
+  enemyRight: {fileID: 1789951772}
+  destroyPrefab: {fileID: 1000010608846784, guid: 6747b1742d70743a8aff8594e708b2f7,
+    type: 2}
   b_tileSet: 0
+  enemyRightDestroyed: 0
+  enemyLeftDestroyed: 0
 --- !u!1 &788238332
 GameObject:
   m_ObjectHideFlags: 0
