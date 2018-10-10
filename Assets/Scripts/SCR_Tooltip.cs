@@ -24,21 +24,21 @@ public class SCR_Tooltip : MonoBehaviour
     {
         transform.position = Input.mousePosition;
 
-        if(Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hitInfo))
-        {
-            if(hitInfo.transform.CompareTag("Unit") && hitInfo.transform.GetComponent<UnitStatus>())
-            {
-                UnitStatus tempStats = hitInfo.transform.GetComponent<UnitStatus>();
-                ShowTooltip(tempStats);
-            }
-            else
-            {
-                HideTooltip();
-            }
-        }
+        //if(Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hitInfo))
+        //{
+        //    if(hitInfo.transform.CompareTag("Unit") && hitInfo.transform.GetComponent<UnitStatus>())
+        //    {
+        //        UnitStatus tempStats = hitInfo.transform.GetComponent<UnitStatus>();
+        //        ShowTooltip(tempStats);
+        //    }
+        //    else
+        //    {
+        //        HideTooltip();
+        //    }
+        //}
     }
 
-    void ShowTooltip(UnitStatus _stats)
+    public void ShowTooltip(UnitStatus _stats)
     {
         myCanvasRenderer.SetAlpha(1);
         tooltipText.text = "HP: " + _stats.hitPoints + "\n" +
@@ -49,7 +49,7 @@ public class SCR_Tooltip : MonoBehaviour
             "Speed: " + _stats.attack;
     }
 
-    void HideTooltip()
+    public void HideTooltip()
     {
         myCanvasRenderer.SetAlpha(0);
         tooltipText.text = "";
