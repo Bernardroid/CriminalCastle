@@ -7,6 +7,7 @@ public class SCR_Grid : MonoBehaviour {
     public Vector2 gridSize;
     public float nodeRadius;
     public LayerMask unwalkableMask;
+    public LayerMask typeMask;
     public SCR_Node[,] grid;
     float nodeDiameter;
     int gridSizeX;
@@ -21,20 +22,18 @@ public class SCR_Grid : MonoBehaviour {
     void Update()
     {
         CreateGrid();
-
     }
 
     public void CreateGrid()
     {
         grid = new SCR_Node[gridSizeX, gridSizeY];
-		Vector3 worldBottomLeft = transform.position - Vector3.right * gridSize.x / 2 - Vector3.up * gridSize.y / 2;
         for (int x=0; x<gridSizeX;x++)
         {
             for (int y = 0; y < gridSizeY; y++)
             {
-				Vector3 worldPoint = worldBottomLeft + Vector3.right * (x * nodeDiameter+nodeRadius ) + Vector3.up * (y * nodeDiameter +nodeRadius);
-                bool walkable = !(Physics.CheckSphere(worldPoint, nodeRadius,unwalkableMask));
-                grid[x, y] = new SCR_Node(walkable, worldPoint, x ,y);
+				Vector3 nodePosition = transform.position + Vector3.right*(x * nodeDiameter) + Vector3.up * (y * nodeDiameter);
+                bool walkable = !(Physics.CheckSphere(nodePosition, nodeRadius,unwalkableMask));
+                grid[x, y] = new SCR_Node(walkable, nodePosition, x ,y);
             }
         }
     }

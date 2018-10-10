@@ -1,7 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+public enum TILE_TYPE
+{
+FLOOR,
+STAIRS,
+HIGHGROUND,
+HIDEOUT,
+BUFF,
+DEBUFF
+}
 public class SCR_Node{
 
     public bool isWalkable;
@@ -9,6 +17,8 @@ public class SCR_Node{
     public int gridX;
     public int gridY;
     public SCR_Node parent;
+    public TILE_TYPE tileType;
+
 
     public SCR_Node(bool _isWalkable, Vector3 _position, int _gridX, int _gridY)
     {
