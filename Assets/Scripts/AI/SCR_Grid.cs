@@ -12,6 +12,7 @@ public class SCR_Grid : MonoBehaviour {
     float nodeDiameter;
     int gridSizeX;
     int gridSizeY;
+    RaycastHit hitter;
 
     void Start()
     {
@@ -31,9 +32,44 @@ public class SCR_Grid : MonoBehaviour {
         {
             for (int y = 0; y < gridSizeY; y++)
             {
-				Vector3 nodePosition = transform.position + Vector3.right*(x * nodeDiameter) + Vector3.up * (y * nodeDiameter);
+				Vector3 nodePosition = transform.position + Vector3.right*(x * nodeDiameter) + Vector3.forward * (y * nodeDiameter);
                 bool walkable = !(Physics.CheckSphere(nodePosition, nodeRadius,unwalkableMask));
-                grid[x, y] = new SCR_Node(walkable, nodePosition, x ,y);
+                if (walkable)
+                {
+                    TILE_TYPE tempTile= new TILE_TYPE();
+                    if (Physics.Raycast(nodePosition + Vector3.up, Vector3.down, out hitter, 5, typeMask))
+                    {
+                        if (hitter.collider.CompareTag("Floor"))
+                        {
+                            tempTile = TILE_TYPE.FLOOR;
+                        }
+                        else if(hitter.collider.CompareTag("Stairs"))
+                        {
+                            tempTile = TILE_TYPE.STAIRS;
+                        }
+                        else if (hitter.collider.CompareTag("Highground"))
+                        {
+                            tempTile = TILE_TYPE.HIGHGROUND;
+                        }
+                        else if (hitter.collider.CompareTag("Hideout"))
+                        {
+                            tempTile = TILE_TYPE.HIDEOUT;
+                        }
+                        else if (hitter.collider.CompareTag("Buff"))
+                        {
+                            tempTile = TILE_TYPE.BUFF;
+                        }
+                        else if(hitter.collider.CompareTag("Debuff"))
+                        {
+                            tempTile = TILE_TYPE.DEBUFF;
+                        }
+                    }
+                    grid[x, y] = new SCR_Node(walkable, nodePosition, x, y,tempTile);
+                }
+                else
+                {
+                    grid[x, y] = new SCR_Node(walkable, nodePosition, x, y, TILE_TYPE.OTHER);
+                }
             }
         }
     }
@@ -51,13 +87,43 @@ public class SCR_Grid : MonoBehaviour {
 
     void OnDrawGizmos()
     {
-        Gizmos.DrawWireCube(transform.position, new Vector3(gridSize.x, gridSize.y,1));
-        
         if (grid!=null)
         {
             foreach (SCR_Node n in grid)
             {
-                Gizmos.color = (n.isWalkable)?Color.white:Color.red;
+                //Gizmos.color = (n.isWalkable)?Color.white:Color.red;
+                if (n.isWalkable)
+                {
+                    switch (n.tileType)
+                    {
+                        case TILE_TYPE.FLOOR:
+                            Gizmos.color = Color.white;
+                            break;
+                        
+                        case TILE_TYPE.STAIRS:
+                            Gizmos.color = Color.grey;
+                            break;
+                        case TILE_TYPE.HIGHGROUND:
+                            Gizmos.color = new Color(0.75f, 0.75f, 0.75f);
+                            break;
+                        case TILE_TYPE.HIDEOUT:
+                            Gizmos.color = Color.black;
+                            break;
+                        case TILE_TYPE.BUFF:
+                            Gizmos.color = Color.blue;
+                            break;
+                        case TILE_TYPE.DEBUFF:
+                            Gizmos.color = Color.green;
+                            break;
+                        case TILE_TYPE.OTHER:
+                            Gizmos.color = Color.red;
+                            break;
+                    }
+                }
+                else
+                {
+                    Gizmos.color = Color.red;
+                }
                 Gizmos.DrawCube(n.position, Vector3.one * (nodeDiameter - .1f));
             }
         }

@@ -8,7 +8,8 @@ STAIRS,
 HIGHGROUND,
 HIDEOUT,
 BUFF,
-DEBUFF
+DEBUFF,
+OTHER
 }
 public class SCR_Node{
 
@@ -26,5 +27,14 @@ public class SCR_Node{
         position = _position;
         gridX = _gridX;
         gridY = _gridY;
+
+    }
+    public SCR_Node(bool _isWalkable, Vector3 _position, int _gridX, int _gridY,TILE_TYPE _tile)
+    {
+        isWalkable = _isWalkable;
+        position = _position;
+        gridX = _gridX;
+        gridY = _gridY;
+        tileType = _tile;
     }
 }
