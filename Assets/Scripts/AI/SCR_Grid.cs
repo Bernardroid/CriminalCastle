@@ -37,8 +37,10 @@ public class SCR_Grid : MonoBehaviour {
                 if (walkable)
                 {
                     TILE_TYPE tempTile= new TILE_TYPE();
+                    Debug.Log(nodePosition);
                     if (Physics.Raycast(nodePosition + Vector3.up, Vector3.down, out hitter, 5, typeMask))
                     {
+                        Debug.Log(hitter.transform.name);
                         if (hitter.collider.CompareTag("Floor"))
                         {
                             tempTile = TILE_TYPE.FLOOR;
@@ -63,6 +65,10 @@ public class SCR_Grid : MonoBehaviour {
                         {
                             tempTile = TILE_TYPE.DEBUFF;
                         }
+                    }
+                    else
+                    {
+                        Debug.Log("Not Hittin");
                     }
                     grid[x, y] = new SCR_Node(walkable, nodePosition, x, y,tempTile);
                 }
@@ -99,12 +105,11 @@ public class SCR_Grid : MonoBehaviour {
                         case TILE_TYPE.FLOOR:
                             Gizmos.color = Color.white;
                             break;
-                        
                         case TILE_TYPE.STAIRS:
-                            Gizmos.color = Color.grey;
+                            Gizmos.color = new Color(0.75f, 0.75f, 0.75f);
                             break;
                         case TILE_TYPE.HIGHGROUND:
-                            Gizmos.color = new Color(0.75f, 0.75f, 0.75f);
+                            Gizmos.color = Color.grey;
                             break;
                         case TILE_TYPE.HIDEOUT:
                             Gizmos.color = Color.black;
