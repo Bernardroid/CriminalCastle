@@ -14,6 +14,7 @@ OTHER
 public class SCR_Node{
 
     public bool isWalkable;
+    public bool isPassable;
     public Vector3 position;
     public int gridX;
     public int gridY;
@@ -21,7 +22,7 @@ public class SCR_Node{
     public TILE_TYPE tileType;
 
 
-    public SCR_Node(bool _isWalkable, Vector3 _position, int _gridX, int _gridY)
+    public SCR_Node(bool _isWalkable, bool _isPassable,Vector3 _position, int _gridX, int _gridY)
     {
         isWalkable = _isWalkable;
         position = _position;
@@ -29,7 +30,7 @@ public class SCR_Node{
         gridY = _gridY;
 
     }
-    public SCR_Node(bool _isWalkable, Vector3 _position, int _gridX, int _gridY,TILE_TYPE _tile)
+    public SCR_Node(bool _isWalkable, bool _isPassable, Vector3 _position, int _gridX, int _gridY,TILE_TYPE _tile)
     {
         isWalkable = _isWalkable;
         position = _position;

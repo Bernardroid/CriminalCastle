@@ -19,10 +19,12 @@ public class SCR_Grid : MonoBehaviour {
         nodeDiameter = nodeRadius * 2;
         gridSizeX = Mathf.RoundToInt(gridSize.x / nodeDiameter);
         gridSizeY = Mathf.RoundToInt(gridSize.y / nodeDiameter);
+        CreateGrid();
+
     }
     void Update()
     {
-        CreateGrid();
+        //CreateGrid();
     }
 
     public void CreateGrid()
@@ -34,12 +36,14 @@ public class SCR_Grid : MonoBehaviour {
             {
 				Vector3 nodePosition = transform.position + Vector3.right*(x * nodeDiameter) + Vector3.forward * (y * nodeDiameter);
                 bool walkable = !(Physics.CheckSphere(nodePosition, nodeRadius,unwalkableMask));
+                bool passable = false;
                 if (walkable)
                 {
                     TILE_TYPE tempTile= new TILE_TYPE();
-                    Debug.Log(nodePosition);
+                    Debug.Log(nodePosition +"Walkable "+ walkable);
                     if (Physics.Raycast(nodePosition + Vector3.up, Vector3.down, out hitter, 5, typeMask))
                     {
+                        passable = true;
                         Debug.Log(hitter.transform.name);
                         if (hitter.collider.CompareTag("Floor"))
                         {
@@ -65,16 +69,26 @@ public class SCR_Grid : MonoBehaviour {
                         {
                             tempTile = TILE_TYPE.DEBUFF;
                         }
+                        grid[x, y] = new SCR_Node(walkable, passable, nodePosition, x, y, tempTile);
                     }
                     else
                     {
+                        
                         Debug.Log("Not Hittin");
+                        grid[x, y] = new SCR_Node(walkable, passable, nodePosition, x, y, TILE_TYPE.FLOOR);
                     }
-                    grid[x, y] = new SCR_Node(walkable, nodePosition, x, y,tempTile);
                 }
                 else
                 {
-                    grid[x, y] = new SCR_Node(walkable, nodePosition, x, y, TILE_TYPE.OTHER);
+                    if (Physics.Raycast(nodePosition + Vector3.up, Vector3.down, out hitter, 5, unwalkableMask))
+                    {
+                        if (hitter.collider.CompareTag("Player"))
+                        {
+                            passable = true;
+                        }
+                    }
+                    Debug.Log("Walkable: " + walkable + "Passable: " + passable);
+                    grid[x, y] = new SCR_Node(walkable, passable, nodePosition, x, y, TILE_TYPE.OTHER);
                 }
             }
         }

@@ -18,12 +18,14 @@ public enum MOVEMENT_TYPE
 }
 
 public class SCR_Unit : MonoBehaviour {
-
-
+    public WEAPON_TYPE weaponType;
+    public MOVEMENT_TYPE movementType;
+    public int movement;
+    SCR_Grid gridManager;
 
 	// Use this for initialization
 	void Start () {
-		
+        gridManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<SCR_Grid>();
 	}
 	
 	// Update is called once per frame
