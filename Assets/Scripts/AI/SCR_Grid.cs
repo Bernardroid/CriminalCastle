@@ -24,7 +24,7 @@ public class SCR_Grid : MonoBehaviour {
     }
     void Update()
     {
-        //CreateGrid();
+        CreateGrid();
     }
 
     public void CreateGrid()
@@ -104,7 +104,7 @@ public class SCR_Grid : MonoBehaviour {
         int y = Mathf.RoundToInt((gridSizeY - 1) * percentY);
         return grid[x, y];
     }
-
+    
     void OnDrawGizmos()
     {
         if (grid!=null)
