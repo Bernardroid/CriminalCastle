@@ -83,9 +83,16 @@ public class SCR_Unit : MonoBehaviour {
 
     void Movement()
     {
-        for(int i=0; i<(gridManager.nodeRadius*2)*movementRange; i++)
+        for (int i = 0; i < (gridManager.nodeRadius * 2) * movementRange; i++)
         {
 
+        }
+        for (int i = 0; i < gridManager.gridSize.x; i++)
+        {
+            for (int j = 0; j < gridManager.gridSize.y; j++)
+            {
+
+            }
         }
     }
 
