@@ -20,9 +20,10 @@ public enum MOVEMENT_TYPE
 public class SCR_Unit : MonoBehaviour {
     public WEAPON_TYPE weaponType;
     public MOVEMENT_TYPE movementType;
-    int movementRange;
+    int baseMovementRange;
     int dmgRange;
     bool hasMoved;
+    bool isSelected;
     SCR_Grid gridManager;
 
 	// Use this for initialization
@@ -55,22 +56,22 @@ public class SCR_Unit : MonoBehaviour {
         {
             case MOVEMENT_TYPE.PIE:
                 {
-                    movementRange = 2;
+                    baseMovementRange = 2;
                 }
                 break;
             case MOVEMENT_TYPE.PARKOUR:
                 {
-                    movementRange = 2;
+                    baseMovementRange = 2;
                 }
                 break;
             case MOVEMENT_TYPE.FLYER:
                 {
-                    movementRange = 2;
+                    baseMovementRange = 2;
                 }
                 break;
             case MOVEMENT_TYPE.MOTO:
                 {
-                    movementRange = 3;
+                    baseMovementRange = 3;
                 }
                 break;
         }
@@ -83,15 +84,14 @@ public class SCR_Unit : MonoBehaviour {
 
     void Movement()
     {
-        for (int i = 0; i < (gridManager.nodeRadius * 2) * movementRange; i++)
-        {
-
-        }
         for (int i = 0; i < gridManager.gridSize.x; i++)
         {
             for (int j = 0; j < gridManager.gridSize.y; j++)
             {
-
+                if(gridManager.NodeFromWorldPoint(transform.position)==gridManager.grid[i,j]&&isSelected)
+                {
+                    
+                }
             }
         }
     }
