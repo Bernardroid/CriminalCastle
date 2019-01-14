@@ -79,18 +79,30 @@ public class SCR_Unit : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
+        Movement();
 	}
 
     void Movement()
     {
-        for (int i = 0; i < gridManager.gridSize.x; i++)
+        if (!isSelected)
         {
-            for (int j = 0; j < gridManager.gridSize.y; j++)
+            Debug.Log("NYAA");
+            for (int i = 0; i < gridManager.gridSize.x; i++)
             {
-                if(gridManager.NodeFromWorldPoint(transform.position)==gridManager.grid[i,j]&&isSelected)
+                for (int j = 0; j < gridManager.gridSize.y; j++)
                 {
-                    
+                    Debug.Log("Node [myNodeX,myNodeY] = [" + gridManager.NodeFromWorldPoint(transform.position).gridX + "," + gridManager.NodeFromWorldPoint(transform.position).gridY + "]");
+                    Debug.Log("Node [i,j] = [" + i + "," + j + "]");
+
+                    Debug.Log((gridManager.NodeFromWorldPoint(transform.position).gridX + i)+(gridManager.NodeFromWorldPoint(transform.position).gridY + j));
+
+                    if ((gridManager.NodeFromWorldPoint(transform.position).gridX+i)+(gridManager.NodeFromWorldPoint(transform.position).gridY+j)<=baseMovementRange)
+                    {
+                    }
+                    if (gridManager.NodeFromWorldPoint(transform.position) == gridManager.grid[i, j])
+                    {
+
+                    }
                 }
             }
         }

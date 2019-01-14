@@ -40,11 +40,11 @@ public class SCR_Grid : MonoBehaviour {
                 if (walkable)
                 {
                     TILE_TYPE tempTile= new TILE_TYPE();
-                    Debug.Log(nodePosition +"Walkable "+ walkable);
+                    //Debug.Log(nodePosition +"Walkable "+ walkable);
                     if (Physics.Raycast(nodePosition + Vector3.up, Vector3.down, out hitter, 5, typeMask))
                     {
                         passable = true;
-                        Debug.Log(hitter.transform.name);
+                        //Debug.Log(hitter.transform.name);
                         if (hitter.collider.CompareTag("Floor"))
                         {
                             tempTile = TILE_TYPE.FLOOR;
@@ -74,7 +74,7 @@ public class SCR_Grid : MonoBehaviour {
                     else
                     {
                         
-                        Debug.Log("Not Hittin");
+                        //Debug.Log("Not Hittin");
                         grid[x, y] = new SCR_Node(walkable, passable, nodePosition, x, y, TILE_TYPE.FLOOR);
                     }
                 }
@@ -87,7 +87,7 @@ public class SCR_Grid : MonoBehaviour {
                             passable = true;
                         }
                     }
-                    Debug.Log("Walkable: " + walkable + "Passable: " + passable);
+                    //Debug.Log("Walkable: " + walkable + "Passable: " + passable);
                     grid[x, y] = new SCR_Node(walkable, passable, nodePosition, x, y, TILE_TYPE.OTHER);
                 }
             }

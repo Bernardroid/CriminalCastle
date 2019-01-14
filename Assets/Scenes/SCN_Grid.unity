@@ -408,6 +408,7 @@ GameObject:
   - component: {fileID: 752930448}
   - component: {fileID: 752930447}
   - component: {fileID: 752930446}
+  - component: {fileID: 752930450}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -476,12 +477,25 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 752930445}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.13, z: 0}
+  m_LocalPosition: {x: 3.34, y: 0.13, z: 1.4}
   m_LocalScale: {x: 0.77343, y: 0.77343, z: 0.77343}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &752930450
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 752930445}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c9a9525474918440abacc5611a0306e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponType: 1
+  movementType: 1
 --- !u!1 &855735505
 GameObject:
   m_ObjectHideFlags: 0
