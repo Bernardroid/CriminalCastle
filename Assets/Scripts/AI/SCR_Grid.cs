@@ -69,6 +69,7 @@ public class SCR_Grid : MonoBehaviour {
                         {
                             tempTile = TILE_TYPE.DEBUFF;
                         }
+                        //Debug.Log("NodePosition: " + nodePosition);
                         grid[x, y] = new SCR_Node(walkable, passable, nodePosition, x, y, tempTile);
                     }
                     else
@@ -93,10 +94,13 @@ public class SCR_Grid : MonoBehaviour {
             }
         }
     }
+
     public SCR_Node NodeFromWorldPoint(Vector3 worldPosition)
     {
-        float percentX = (worldPosition.x - transform.position.x) / gridSize.x + 0.5f;
-        float percentY = (worldPosition.y - transform.position.y) / gridSize.y + 0.5f;
+        float percentX = (worldPosition.x - transform.position.x) / gridSize.x;
+        float percentY = (worldPosition.z - transform.position.z) / gridSize.y;
+        Debug.Log("PercentY =" + percentY);
+        Debug.Log("PercentX =" + percentX);
 
         percentX = Mathf.Clamp01(percentX);
         percentY = Mathf.Clamp01(percentY);

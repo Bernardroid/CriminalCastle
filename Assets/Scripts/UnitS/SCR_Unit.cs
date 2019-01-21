@@ -86,13 +86,11 @@ public class SCR_Unit : MonoBehaviour {
     {
         if (!isSelected)
         {
-            Debug.Log("NYAA");
+            Debug.Log("Node [myNodeX,myNodeY] = [" + gridManager.NodeFromWorldPoint(transform.position).gridX + "," + gridManager.NodeFromWorldPoint(transform.position).gridY + "]");
             for (int i = 0; i < gridManager.gridSize.x; i++)
             {
                 for (int j = 0; j < gridManager.gridSize.y; j++)
                 {
-                    Debug.Log("Node [myNodeX,myNodeY] = [" + gridManager.NodeFromWorldPoint(transform.position).gridX + "," + gridManager.NodeFromWorldPoint(transform.position).gridY + "]");
-                    Debug.Log("Node [i,j] = [" + i + "," + j + "]");
 
                     Debug.Log((gridManager.NodeFromWorldPoint(transform.position).gridX + i)+(gridManager.NodeFromWorldPoint(transform.position).gridY + j));
 
