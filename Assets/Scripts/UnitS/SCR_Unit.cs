@@ -29,7 +29,16 @@ public class SCR_Unit : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         gridManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<SCR_Grid>();
-        switch(weaponType)
+        
+        isSelected = true;
+        WeaponTypeStats(weaponType);
+        MovementTypeStats(movementType);
+    }
+
+
+    void WeaponTypeStats(WEAPON_TYPE _type)
+    {
+        switch (_type)
         {
             case WEAPON_TYPE.SWORD:
                 {
@@ -52,7 +61,11 @@ public class SCR_Unit : MonoBehaviour {
                 }
                 break;
         }
-        switch (movementType)
+    }
+
+    void MovementTypeStats(MOVEMENT_TYPE _type)
+    {
+        switch (_type)
         {
             case MOVEMENT_TYPE.PIE:
                 {
@@ -75,7 +88,7 @@ public class SCR_Unit : MonoBehaviour {
                 }
                 break;
         }
-	}
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -84,18 +97,24 @@ public class SCR_Unit : MonoBehaviour {
 
     void Movement()
     {
-        if (!isSelected)
+        if (isSelected)
         {
-            Debug.Log("Node [myNodeX,myNodeY] = [" + gridManager.NodeFromWorldPoint(transform.position).gridX + "," + gridManager.NodeFromWorldPoint(transform.position).gridY + "]");
+            //Debug.Log("Node [myNodeX,myNodeY] = [" + gridManager.NodeFromWorldPoint(transform.position).gridX + "," + gridManager.NodeFromWorldPoint(transform.position).gridY + "]");
             for (int i = 0; i < gridManager.gridSize.x; i++)
             {
                 for (int j = 0; j < gridManager.gridSize.y; j++)
                 {
 
-                    Debug.Log((gridManager.NodeFromWorldPoint(transform.position).gridX + i)+(gridManager.NodeFromWorldPoint(transform.position).gridY + j));
-
-                    if ((gridManager.NodeFromWorldPoint(transform.position).gridX+i)+(gridManager.NodeFromWorldPoint(transform.position).gridY+j)<=baseMovementRange)
+                    //Debug.Log((gridManager.NodeFromWorldPoint(transform.position).gridX + i)+(gridManager.NodeFromWorldPoint(transform.position).gridY + j));
+                    if (Mathf.Abs(gridManager.NodeFromWorldPoint(transform.position).gridX - i ) + Mathf.Abs(gridManager.NodeFromWorldPoint(transform.position).gridY - j) < baseMovementRange)
                     {
+                        Debug.Log("Am in");
+                        Debug.Log(gridManager.grid[i, j].tileType = TILE_TYPE.MOVEABLE);
+                    }
+                    if ((gridManager.NodeFromWorldPoint(transform.position).gridX+i)+(gridManager.NodeFromWorldPoint(transform.position).gridY+j)<baseMovementRange)
+                    {
+                        //Debug.Log("Entro");
+                        //Debug.Log(gridManager.NodeFromWorldPoint(new Vector3((gridManager.NodeFromWorldPoint(transform.position).gridX + i), 0 ,(gridManager.NodeFromWorldPoint(transform.position).gridY + j))));
                     }
                     if (gridManager.NodeFromWorldPoint(transform.position) == gridManager.grid[i, j])
                     {

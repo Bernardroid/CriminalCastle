@@ -9,7 +9,8 @@ HIGHGROUND,
 HIDEOUT,
 BUFF,
 DEBUFF,
-OTHER
+OTHER,
+MOVEABLE
 }
 public class SCR_Node{
 

@@ -99,8 +99,8 @@ public class SCR_Grid : MonoBehaviour {
     {
         float percentX = (worldPosition.x - transform.position.x) / gridSize.x;
         float percentY = (worldPosition.z - transform.position.z) / gridSize.y;
-        Debug.Log("PercentY =" + percentY);
-        Debug.Log("PercentX =" + percentX);
+        //Debug.Log("PercentY =" + percentY);
+        //Debug.Log("PercentX =" + percentX);
 
         percentX = Mathf.Clamp01(percentX);
         percentY = Mathf.Clamp01(percentY);
@@ -140,6 +140,9 @@ public class SCR_Grid : MonoBehaviour {
                             break;
                         case TILE_TYPE.OTHER:
                             Gizmos.color = Color.red;
+                            break;
+                        case TILE_TYPE.MOVEABLE:
+                            Gizmos.color = Color.cyan;
                             break;
                     }
                 }
