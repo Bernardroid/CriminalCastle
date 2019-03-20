@@ -92,12 +92,12 @@ public class SCR_Unit : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        Movement();
+        CheckMovement();
 	}
 
-    void Movement()
+    void CheckMovement()
     {
-        if (isSelected)
+        if (isSelected&&!hasMoved)
         {
             //Debug.Log("Node [myNodeX,myNodeY] = [" + gridManager.NodeFromWorldPoint(transform.position).gridX + "," + gridManager.NodeFromWorldPoint(transform.position).gridY + "]");
             for (int i = 0; i < gridManager.gridSize.x; i++)
@@ -106,20 +106,12 @@ public class SCR_Unit : MonoBehaviour {
                 {
 
                     //Debug.Log((gridManager.NodeFromWorldPoint(transform.position).gridX + i)+(gridManager.NodeFromWorldPoint(transform.position).gridY + j));
-                    if (Mathf.Abs(gridManager.NodeFromWorldPoint(transform.position).gridX - i ) + Mathf.Abs(gridManager.NodeFromWorldPoint(transform.position).gridY - j) < baseMovementRange)
+                    if (Mathf.Abs(i - gridManager.NodeFromWorldPoint(transform.position).gridX) + Mathf.Abs(j - gridManager.NodeFromWorldPoint(transform.position).gridY) <= baseMovementRange)
                     {
-                        Debug.Log("Am in");
+                        Debug.Log("Pos="+ transform.position+"X = "+ gridManager.NodeFromWorldPoint(transform.position).gridX + " Y = " + gridManager.NodeFromWorldPoint(transform.position).gridY);
                         Debug.Log(gridManager.grid[i, j].tileType = TILE_TYPE.MOVEABLE);
                     }
-                    if ((gridManager.NodeFromWorldPoint(transform.position).gridX+i)+(gridManager.NodeFromWorldPoint(transform.position).gridY+j)<baseMovementRange)
-                    {
-                        //Debug.Log("Entro");
-                        //Debug.Log(gridManager.NodeFromWorldPoint(new Vector3((gridManager.NodeFromWorldPoint(transform.position).gridX + i), 0 ,(gridManager.NodeFromWorldPoint(transform.position).gridY + j))));
-                    }
-                    if (gridManager.NodeFromWorldPoint(transform.position) == gridManager.grid[i, j])
-                    {
 
-                    }
                 }
             }
         }

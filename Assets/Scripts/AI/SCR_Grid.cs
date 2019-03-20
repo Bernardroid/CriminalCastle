@@ -35,7 +35,7 @@ public class SCR_Grid : MonoBehaviour {
             for (int y = 0; y < gridSizeY; y++)
             {
 				Vector3 nodePosition = transform.position + Vector3.right*(x * nodeDiameter) + Vector3.forward * (y * nodeDiameter);
-                bool walkable = !(Physics.CheckSphere(nodePosition, nodeRadius,unwalkableMask));
+                bool walkable = !(Physics.CheckSphere(nodePosition, nodeRadius-0.1f,unwalkableMask));
                 bool passable = false;
                 if (walkable)
                 {
@@ -97,15 +97,16 @@ public class SCR_Grid : MonoBehaviour {
 
     public SCR_Node NodeFromWorldPoint(Vector3 worldPosition)
     {
-        float percentX = (worldPosition.x - transform.position.x) / gridSize.x;
-        float percentY = (worldPosition.z - transform.position.z) / gridSize.y;
-        //Debug.Log("PercentY =" + percentY);
-        //Debug.Log("PercentX =" + percentX);
+        //float percentX = (worldPosition.x - transform.position.x) / gridSize.x;
+        //float percentY = (worldPosition.z - transform.position.z) / gridSize.y;
+        float percentX = (worldPosition.x) / gridSize.x;
+        float percentY = (worldPosition.z) / gridSize.y;
 
         percentX = Mathf.Clamp01(percentX);
         percentY = Mathf.Clamp01(percentY);
-        int x = Mathf.RoundToInt((gridSizeX - 1) * percentX);
-        int y = Mathf.RoundToInt((gridSizeY - 1) * percentY);
+
+        int x = Mathf.CeilToInt((gridSizeX - 1) * percentX);
+        int y = Mathf.CeilToInt((gridSizeY - 1) * percentY);
         return grid[x, y];
     }
     
