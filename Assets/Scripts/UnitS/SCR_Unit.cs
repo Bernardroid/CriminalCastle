@@ -23,7 +23,7 @@ public class SCR_Unit : MonoBehaviour {
     int baseMovementRange;
     int dmgRange;
     bool hasMoved;
-    bool isSelected;
+    public bool isSelected;
     SCR_Grid gridManager;
 
 	// Use this for initialization

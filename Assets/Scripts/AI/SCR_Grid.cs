@@ -13,7 +13,11 @@ public class SCR_Grid : MonoBehaviour {
     int gridSizeX;
     int gridSizeY;
     RaycastHit hitter;
+    private void Awake()
+    {
+        CreateGrid();
 
+    }
     void Start()
     {
         nodeDiameter = nodeRadius * 2;
@@ -24,7 +28,7 @@ public class SCR_Grid : MonoBehaviour {
     }
     void Update()
     {
-        CreateGrid();
+        //CreateGrid();
     }
 
     public void CreateGrid()
@@ -107,6 +111,9 @@ public class SCR_Grid : MonoBehaviour {
 
         int x = Mathf.CeilToInt((gridSizeX - 1) * percentX);
         int y = Mathf.CeilToInt((gridSizeY - 1) * percentY);
+
+        Debug.Log("x= " + x + " y= " + y);
+        Debug.Log(grid.Length);
         return grid[x, y];
     }
     
