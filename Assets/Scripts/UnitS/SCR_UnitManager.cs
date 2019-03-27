@@ -8,6 +8,7 @@ public class SCR_UnitManager : MonoBehaviour
     public GameObject[] unitsPrefabs;
     public GameObject[] playedUnits;
     public GameObject pointer;
+    public int finishedUnits;
     public int currentUnit;
     public int currentX;
     public int currentY;
@@ -51,57 +52,94 @@ public class SCR_UnitManager : MonoBehaviour
 
     void NextUnit()
     {
-        playedUnits[currentUnit].GetComponent<SCR_Unit>().isSelected = false;
-
-        currentUnit++;
-        if(currentUnit>playedUnits.Length)
+        if (finishedUnits<playedUnits.Length)
         {
-            currentUnit = 0;
+            playedUnits[currentUnit].GetComponent<SCR_Unit>().isSelected = false;
+
+            currentUnit++;
+            if (currentUnit > playedUnits.Length)
+            {
+                currentUnit = 0;
+            }
+            playedUnits[currentUnit].GetComponent<SCR_Unit>().isSelected = true;
+
+            currentX = gridManager.NodeFromWorldPoint(playedUnits[currentUnit].transform.position).gridX;
+            currentY = gridManager.NodeFromWorldPoint(playedUnits[currentUnit].transform.position).gridY;
+            MovePointer();
         }
-        playedUnits[currentUnit].GetComponent<SCR_Unit>().isSelected = true;
-
-        currentX = gridManager.NodeFromWorldPoint(playedUnits[currentUnit].transform.position).gridX;
-        currentY = gridManager.NodeFromWorldPoint(playedUnits[currentUnit].transform.position).gridY;
-        MovePointer();
+        else
+        {
+            FinishTurn();
+        }
     }
-
-
+    
     void PastUnit()
     {
-        playedUnits[currentUnit].GetComponent<SCR_Unit>().isSelected = false;
-
-        currentUnit--;
-        if (currentUnit < 0)
+        if (finishedUnits < playedUnits.Length)
         {
-            currentUnit = playedUnits.Length - 1;
-        }
-        playedUnits[currentUnit].GetComponent<SCR_Unit>().isSelected = true;
+            playedUnits[currentUnit].GetComponent<SCR_Unit>().isSelected = false;
 
-        currentX = gridManager.NodeFromWorldPoint(playedUnits[currentUnit].transform.position).gridX;
-        currentY = gridManager.NodeFromWorldPoint(playedUnits[currentUnit].transform.position).gridY;
-        MovePointer();
+            currentUnit--;
+            if (currentUnit < 0)
+            {
+                currentUnit = playedUnits.Length - 1;
+            }
+            playedUnits[currentUnit].GetComponent<SCR_Unit>().isSelected = true;
+
+            currentX = gridManager.NodeFromWorldPoint(playedUnits[currentUnit].transform.position).gridX;
+            currentY = gridManager.NodeFromWorldPoint(playedUnits[currentUnit].transform.position).gridY;
+            MovePointer();
+        }
+        else
+        {
+            FinishTurn();
+
+        }
     }
     void MovePointer()
     {
-        if(currentX>gridManager.gridSize.x)
+        if(currentX>=gridManager.gridSize.x)
         {
-            currentX = (int)gridManager.gridSize.x;
+            currentX = (int)gridManager.gridSize.x-1;
         }
         else if(currentX<0)
         {
             currentX = 0;
         }
 
-        if (currentY > gridManager.gridSize.y)
+        if (currentY >= gridManager.gridSize.y)
         {
-            currentY = (int)gridManager.gridSize.y;
+            currentY = (int)gridManager.gridSize.y-1;
         }
         else if (currentY<0)
         {
             currentY = 0;
         }
         pointer.transform.position = gridManager.grid[currentX, currentY].position+Vector3.up;
+    }
+    void SelectTile()
+    {
+        Debug.Log(gridManager.NodeFromWorldPoint(pointer.transform.position).isWalkable);
+        if(gridManager.NodeFromWorldPoint(pointer.transform.position).isWalkable)
+        {
+            playedUnits[currentUnit].transform.position = gridManager.NodeFromWorldPoint(pointer.transform.position).position;
+            playedUnits[currentUnit].GetComponent<SCR_Unit>().hasMoved = true;
+        }
+        NextUnit();
+    }
+    void FinishTurn()
+    {
 
+    }
+
+    void ResetUnitsStats()
+    {
+        finishedUnits = 0;
+        for(int i=0; i<playedUnits.Length;i++)
+        {
+            playedUnits[i].GetComponent<SCR_Unit>().hasMoved = false;
+            playedUnits[i].GetComponent<SCR_Unit>().isSelected = false;
+        }
     }
 
     void InstantiateUnitsOnStart()
@@ -139,7 +177,10 @@ public class SCR_UnitManager : MonoBehaviour
             currentX++;
             MovePointer();
         }
-
+        if(Input.GetKeyDown(KeyCode.F))
+        {
+            SelectTile();
+        }
 
     }
 
