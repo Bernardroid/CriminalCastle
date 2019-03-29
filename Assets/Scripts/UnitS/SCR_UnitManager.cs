@@ -5,6 +5,7 @@ using UnityEngine;
 public class SCR_UnitManager : MonoBehaviour
 {
     public SCR_Grid gridManager;
+    public SCR_GameManager gameManager;
     public GameObject[] unitsPrefabs;
     public GameObject[] playedUnits;
     public GameObject pointer;
@@ -23,7 +24,10 @@ public class SCR_UnitManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Controls();
+        if(gameManager.playerTurn)
+        {
+            Controls();
+        }
     }
 
     void SelectunitOnClick()
@@ -48,6 +52,8 @@ public class SCR_UnitManager : MonoBehaviour
         currentX = gridManager.NodeFromWorldPoint(playedUnits[currentUnit].transform.position).gridX;
         currentY = gridManager.NodeFromWorldPoint(playedUnits[currentUnit].transform.position).gridY;
         MovePointer();
+        gridManager.CreateGrid();
+        playedUnits[currentUnit].GetComponent<SCR_Unit>().CheckMovement();
     }
 
     void NextUnit()
@@ -57,15 +63,20 @@ public class SCR_UnitManager : MonoBehaviour
             playedUnits[currentUnit].GetComponent<SCR_Unit>().isSelected = false;
 
             currentUnit++;
-            if (currentUnit > playedUnits.Length)
+            if (currentUnit >= playedUnits.Length)
             {
                 currentUnit = 0;
             }
             playedUnits[currentUnit].GetComponent<SCR_Unit>().isSelected = true;
+            
 
             currentX = gridManager.NodeFromWorldPoint(playedUnits[currentUnit].transform.position).gridX;
             currentY = gridManager.NodeFromWorldPoint(playedUnits[currentUnit].transform.position).gridY;
             MovePointer();
+
+            gridManager.CreateGrid();
+            playedUnits[currentUnit].GetComponent<SCR_Unit>().CheckMovement();
+
         }
         else
         {
@@ -89,6 +100,8 @@ public class SCR_UnitManager : MonoBehaviour
             currentX = gridManager.NodeFromWorldPoint(playedUnits[currentUnit].transform.position).gridX;
             currentY = gridManager.NodeFromWorldPoint(playedUnits[currentUnit].transform.position).gridY;
             MovePointer();
+            gridManager.CreateGrid();
+            playedUnits[currentUnit].GetComponent<SCR_Unit>().CheckMovement();
         }
         else
         {
@@ -119,17 +132,23 @@ public class SCR_UnitManager : MonoBehaviour
     }
     void SelectTile()
     {
-        Debug.Log(gridManager.NodeFromWorldPoint(pointer.transform.position).isWalkable);
-        if(gridManager.NodeFromWorldPoint(pointer.transform.position).isWalkable)
+        if(gridManager.NodeFromWorldPoint(pointer.transform.position).tileType==TILE_TYPE.MOVEABLE)
         {
             playedUnits[currentUnit].transform.position = gridManager.NodeFromWorldPoint(pointer.transform.position).position;
             playedUnits[currentUnit].GetComponent<SCR_Unit>().hasMoved = true;
+            finishedUnits++;
+            NextUnit();
         }
-        NextUnit();
     }
+
     void FinishTurn()
     {
-
+        if(finishedUnits>=playedUnits.Length)
+        {
+            gameManager.playerTurn=false;
+            gridManager.CreateGrid();
+            ResetUnitsStats();
+        }
     }
 
     void ResetUnitsStats()
@@ -144,7 +163,7 @@ public class SCR_UnitManager : MonoBehaviour
 
     void InstantiateUnitsOnStart()
     {
-        //BernyHelpu
+        //Loaded on Scene andd selected from a gameobject by id
     }
 
     void Controls()
@@ -183,6 +202,4 @@ public class SCR_UnitManager : MonoBehaviour
         }
 
     }
-
-
 }

@@ -20,17 +20,16 @@ public enum MOVEMENT_TYPE
 public class SCR_Unit : MonoBehaviour {
     public WEAPON_TYPE weaponType;
     public MOVEMENT_TYPE movementType;
+    public int unityId;
     int baseMovementRange;
-    int dmgRange;
+    int attRange;
     public bool hasMoved;
     public bool isSelected;
     SCR_Grid gridManager;
 
 	// Use this for initialization
-	void Start () {
+	void Awake (){
         gridManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<SCR_Grid>();
-        
-        isSelected = true;
         WeaponTypeStats(weaponType);
         MovementTypeStats(movementType);
     }
@@ -42,22 +41,22 @@ public class SCR_Unit : MonoBehaviour {
         {
             case WEAPON_TYPE.SWORD:
                 {
-                    dmgRange = 1;
+                    attRange = 1;
                 }
                 break;
             case WEAPON_TYPE.CQC:
                 {
-                    dmgRange = 1;
+                    attRange = 1;
                 }
                 break;
             case WEAPON_TYPE.MAGIC:
                 {
-                    dmgRange = 2;
+                    attRange = 2;
                 }
                 break;
             case WEAPON_TYPE.SNIPER:
                 {
-                    dmgRange = 3;
+                    attRange = 3;
                 }
                 break;
         }
@@ -92,10 +91,30 @@ public class SCR_Unit : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        CheckMovement();
+        //CheckMovement();
 	}
 
-    void CheckMovement()
+    public void Attack()
+    {
+
+    }
+    public void CheckGenerakAttack()
+    {
+        for (int i = 0; i < gridManager.gridSize.x; i++)
+        {
+            for (int j = 0; j < gridManager.gridSize.y; j++)
+            {
+                //Debug.Log((gridManager.NodeFromWorldPoint(transform.position).gridX + i)+(gridManager.NodeFromWorldPoint(transform.position).gridY + j));
+                if (Mathf.Abs(i - gridManager.NodeFromWorldPoint(transform.position).gridX) + Mathf.Abs(j - gridManager.NodeFromWorldPoint(transform.position).gridY) <= attRange)
+                {
+                   
+
+                }
+
+            }
+        }
+    }
+    public void CheckMovement()
     {
         if (isSelected&&!hasMoved)
         {
@@ -109,7 +128,11 @@ public class SCR_Unit : MonoBehaviour {
                     if (Mathf.Abs(i - gridManager.NodeFromWorldPoint(transform.position).gridX) + Mathf.Abs(j - gridManager.NodeFromWorldPoint(transform.position).gridY) <= baseMovementRange)
                     {
                         Debug.Log("Pos="+ transform.position+"X = "+ gridManager.NodeFromWorldPoint(transform.position).gridX + " Y = " + gridManager.NodeFromWorldPoint(transform.position).gridY);
-                        Debug.Log(gridManager.grid[i, j].tileType = TILE_TYPE.MOVEABLE);
+                        if (gridManager.grid[i, j].tileType!=TILE_TYPE.OTHER)
+                        {
+                            gridManager.grid[i, j].tileType = TILE_TYPE.MOVEABLE;
+                        }
+
                     }
 
                 }
